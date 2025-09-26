@@ -7,11 +7,16 @@
  * @package WordPress
  * @subpackage Twenty_Twenty_One
  * @since Twenty Twenty-One 1.0
- */
+ */ 
+
+$class = ''; 
+if ( !is_single() ) {
+	$class = "danh-sach";
+}
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class($class); ?>>
 	<header class="entry-header">
 		<?php if ( is_singular() ) : ?>
 			<?php the_title( '<h1 class="entry-title default-max-width">', '</h1>' ); ?>

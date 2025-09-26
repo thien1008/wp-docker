@@ -1,151 +1,221 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Tải Font Awesome qua link (thay vì @import để tránh lỗi tải) -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
 <style>
-	/* Footer */
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-section {
-    padding: 60px 0;
-}
+	.wp-block-pages-list__item__link{
+		color: white !important;
+	}
+	.cat-item >a{
+		color: white !important;
+	}
+	#main{
+		padding: 0 !important;
+	}
+    /* Footer */
+    #footer {
+        background: #007b5e !important;
+        color: #ffffff;
+        padding: 20px 0;
+    }
+    #footer h5 {
+        padding-left: 10px;
+        border-left: 3px solid #eeeeee;
+        padding-bottom: 6px;
+        margin-bottom: 20px;
+        color: #ffffff;
+        font-size: 18px;
+    }
+    #footer .footer-widget {
+        margin-bottom: 15px;
+    }
+    #footer .footer-widget ul {
+        list-style: none;
+        padding: 0;
+    }
+    #footer .footer-widget ul li {
+        padding: 5px 0;
+    }
+    #footer .footer-widget ul li a {
+        color: white;
+        text-decoration: none;
+    }
+    #footer .footer-widget ul li a:hover {
+        color: #eeeeee;
+    }
+    #footer .social {
+        text-align: center;
+        margin: 20px 0;
+    }
+    #footer .social li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+    #footer .social li a i {
+        font-size: 25px;
+        color: white !important; /* Đảm bảo màu trắng cho tất cả icon social */
+        transition: all 0.5s ease;
+    }
+    #footer .social li a i:hover {
+        font-size: 30px;
+        color: #eeeeee !important;
+    }
+    #footer .footer-bottom {
+        text-align: center;
+        padding-top: 10px;
+        border-top: 1px solid #ffffff;
+    }
+    @media (max-width: 767px) {
+        #footer h5 {
+            padding-left: 0;
+            border-left: transparent;
+            margin-bottom: 10px;
+        }
+        #footer .col-md-4 {
+            margin-bottom: 20px;
+        }
+    }
 
-section .section-title {
-    text-align: center;
-    color: #007b5e;
-    margin-bottom: 50px;
-    text-transform: uppercase;
-}
-#footer {
-    background: #007b5e !important;
-}
-#footer h5{
-	padding-left: 10px;
-    border-left: 3px solid #eeeeee;
-    padding-bottom: 6px;
-    margin-bottom: 20px;
-    color:#ffffff;
-}
-#footer a {
-    color: #ffffff;
-    text-decoration: none !important;
-    background-color: transparent;
-    -webkit-text-decoration-skip: objects;
-}
-#footer ul.social li{
-	padding: 3px 0;
-}
-#footer ul.social li a i {
-    margin-right: 5px;
-	font-size:25px;
-	-webkit-transition: .5s all ease;
-	-moz-transition: .5s all ease;
-	transition: .5s all ease;
-}
-#footer ul.social li:hover a i {
-	font-size:30px;
-	margin-top:-10px;
-}
-#footer ul.social li a,
-#footer ul.quick-links li a{
-	color:#ffffff;
-}
-#footer ul.social li a:hover{
-	color:#eeeeee;
-}
-#footer ul.quick-links li{
-	padding: 3px 0;
-	-webkit-transition: .5s all ease;
-	-moz-transition: .5s all ease;
-	transition: .5s all ease;
-}
-#footer ul.quick-links li:hover{
-	padding: 3px 0;
-	margin-left:5px;
-	font-weight:700;
-}
-#footer ul.quick-links li a i{
-	margin-right: 5px;
-}
-#footer ul.quick-links li:hover a i {
-    font-weight: 700;
-}
+    /* Tùy chỉnh danh sách trang (Pages List) */
+    .wp-block-page-list {
+        list-style-type: none;
+        padding: 0;
+        color: #ffffff;
+        background-color: #007b5e;
+    }
+    .wp-block-page-list li {
+        padding: 5px 0;
+        margin-left: 10px;
+    }
+    .wp-block-page-list li a {
+        color: #ffffff;
+        text-decoration: none;
+        position: relative;
+        padding-left: 20px;
+    }
+    .wp-block-page-list li a::before {
+        content: "\f101"; /* Unicode fa-angle-double-right */
+        font-family: 'FontAwesome'; /* Sửa: Dấu nháy đơn */
+        position: absolute;
+        left: 0;
+        color: #ffffff;
+        font-size: 16px;
+    }
+    /* Fallback nếu Font Awesome không tải: Hiển thị >> */
+    .wp-block-page-list li a:before:not([class*="fa"]) {
+        content: ">> " !important;
+        font-family: inherit !important;
+    }
+    /* Đánh dấu trang hiện tại */
+    .wp-block-page-list li.current-menu-item a {
+        font-weight: bold;
+        color: #ffffff;
+    }
+    .wp-block-page-list li a:hover {
+        color: #eeeeee;
+    }
+    .wp-block-page-list li a:hover::before {
+        color: #eeeeee;
+    }
 
-@media (max-width:767px){
-	#footer h5 {
-    padding-left: 0;
-    border-left: transparent;
-    padding-bottom: 0px;
-    margin-bottom: 10px;
-}
-}
+    /* Responsive cho Pages List */
+    @media (max-width: 767px) {
+        .wp-block-page-list li {
+            margin-left: 5px;
+        }
+        .wp-block-page-list li a {
+            padding-left: 15px;
+        }
+        .wp-block-page-list li a::before {
+            font-size: 14px;
+        }
+    }
 
+    /* Tùy chỉnh danh sách danh mục (Categories List) */
+    .wp-block-categories-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .wp-block-categories li {
+        padding: 5px 0;
+        margin-left: 10px;
+    }
+    .wp-block-categories li a {
+        text-decoration: none;
+        position: relative;
+        padding-left: 20px;
+    }
+    .wp-block-categories li a::before {
+        content: "\f101"; /* Unicode fa-angle-double-right */
+        font-family: 'FontAwesome'; /* Sửa: Dấu nháy đơn */
+        position: absolute;
+        left: 0;
+        color: inherit;
+        font-size: 16px;
+    }
+    /* Fallback nếu Font Awesome không tải: Hiển thị >> */
+    .wp-block-categories li a:before:not([class*="fa"]) {
+        content: ">> " !important;
+        font-family: inherit !important;
+    }
+
+    /* Responsive cho Categories List */
+    @media (max-width: 767px) {
+        .wp-block-categories li {
+            margin-left: 5px;
+        }
+        .wp-block-categories li a {
+            padding-left: 15px;
+        }
+        .wp-block-categories li a::before {
+            font-size: 14px;
+        }
+    }
 </style>
-<?php
-// functions.php
-function register_my_menus() {
-    register_nav_menus([
-        'footer' => __( 'Footer Menu' ),
-    ]);
-}
-add_action( 'init', 'register_my_menus' );
-?>
-
-<!-- footer.php -->
-<?php
-$locations = get_nav_menu_locations();
-$menu_id = $locations['footer'] ?? null;
-
-if ($menu_id) {
-    wp_nav_menu([
-        'theme_location' => 'footer',
-        'container'      => false,
-        'menu_class'     => 'footer-menu',
-    ]);
-} else {
-    echo '<p>Chưa có menu được gán vào vị trí Footer.</p>';
-}
-?>
 
 <!-- Footer -->
-	<section id="footer">
-		<div class="container">
-			<div class="row text-center text-xs-center text-sm-left text-md-left">
-				
-	<div class="col-xs-12 col-sm-4 col-md-4 " style='orientation: horizontal;display: flex;justify-content: center;align-items: center;'>
-
-    <?php
-    wp_nav_menu([
-        'theme_location'  => 'footer',
-        'container'       => false,
-        'menu_class'      => 'list-unstyled quick-links footer-quick-links',
-        'fallback_cb'     => false,
-        'depth'           => 1,
-        'link_before'     => '<i class="fa fa-angle-double-right"></i> ',
-        'link_after'      => '',
-    ]);
-    ?>
-</div>
-
-
-			</div>
-<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-					<ul class="list-unstyled list-inline social text-center">
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-facebook"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-twitter"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-instagram"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-google-plus"></i></a></li>
-						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02" target="_blank"><i class="fa fa-envelope"></i></a></li>
-					</ul>
-				</div>
-				<hr>
-			</div>	
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-					<p><u><a href="https://www.nationaltransaction.com/">National Transaction Corporation</a></u> is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p>
-					<p class="h6">© All right Reversed.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Sunlimetech</a></p>
-				</div>
-				<hr>
-			</div>	
-		</div>
-	</section>
-	<!-- ./Footer -->
+<section id="footer">
+    <div class="container">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-4">
+                <h5>| Quick links</h5> <!-- Thêm | để giống hình ảnh -->
+                <?php if (is_active_sidebar('sidebar-1')) : ?>
+                    <?php dynamic_sidebar('sidebar-1'); ?>
+                <?php endif; ?>
+            </div>
+            <div class="col-md-4">
+                <h5>| Quick links</h5>
+                <?php if (is_active_sidebar('sidebar-2')) : ?> <!-- Sửa: footer-widget-2 thay vì 3 -->
+                    <?php dynamic_sidebar('sidebar-2'); ?>
+                <?php endif; ?>
+            </div>
+            <div class="col-md-4">
+                <h5>| Quick links</h5>
+                <?php if (is_active_sidebar('sidebar-3')) : ?>
+                    <?php dynamic_sidebar('sidebar-3'); ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 social">
+                <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item"><a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.twitter.com"><i class="fa fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a href="https://www.instagram.com"><i class="fa fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a href="https://plus.google.com"><i class="fa fa-google-plus"></i></a></li>
+                    <li class="list-inline-item"><a href="mailto:info@example.com"><i class="fa fa-envelope"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row footer-bottom">
+            <div class="col-12">
+                <p>National Transaction Corporation is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p>
+                <p>© All right Reversed. <a style='color:white!important' href="https://www.sunlimetech.com" target="_blank">Sunlimetech</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ./Footer -->
