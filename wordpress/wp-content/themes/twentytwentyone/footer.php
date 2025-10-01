@@ -22,7 +22,7 @@
         padding: 20px 0;
     }
     #footer h5 {
-        padding-left: 10px;
+        padding-left: 13px; /* Điều chỉnh để border-left thẳng hàng với icon >> */
         border-left: 3px solid #eeeeee;
         padding-bottom: 6px;
         margin-bottom: 20px;
@@ -38,13 +38,19 @@
     }
     #footer .footer-widget ul li {
         padding: 5px 0;
+        transition: all 0.3s ease; /* Thêm transition cho hiệu ứng mượt */
     }
     #footer .footer-widget ul li a {
         color: white;
         text-decoration: none;
+        transition: all 0.3s ease; /* Thêm transition cho hiệu ứng mượt */
+    }
+    #footer .footer-widget ul li:hover {
+        transform: translateX(10px); /* Di chuyển sang phải khi hover */
     }
     #footer .footer-widget ul li a:hover {
-        color: #eeeeee;
+        color: #ffffff; /* Màu trắng đậm hơn khi hover */
+        font-weight: bold; /* Tăng độ đậm */
     }
     #footer .social {
         text-align: center;
@@ -54,13 +60,16 @@
         display: inline-block;
         margin: 0 10px;
     }
+    #footer .social li a {
+        display: inline-block; /* Thêm để transform hoạt động */
+    }
     #footer .social li a i {
         font-size: 25px;
-        color: white !important; /* Đảm bảo màu trắng cho tất cả icon social */
-        transition: all 0.5s ease;
+        color: white !important;
+        transition: all 0.3s ease; /* Giảm thời gian transition */
     }
-    #footer .social li a i:hover {
-        font-size: 30px;
+    #footer .social li a:hover i {
+        transform: scale(1.2); /* Phóng to 20% thay vì thay đổi font-size */
         color: #eeeeee !important;
     }
     #footer .footer-bottom {
@@ -89,16 +98,18 @@
     .wp-block-page-list li {
         padding: 5px 0;
         margin-left: 10px;
+        transition: all 0.8s ease; /* Thêm transition */
     }
     .wp-block-page-list li a {
         color: #ffffff;
         text-decoration: none;
         position: relative;
         padding-left: 20px;
+        transition: all 0.3s ease; /* Thêm transition */
     }
     .wp-block-page-list li a::before {
         content: "\f101"; /* Unicode fa-angle-double-right */
-        font-family: 'FontAwesome'; /* Sửa: Dấu nháy đơn */
+        font-family: 'FontAwesome';
         position: absolute;
         left: 0;
         color: #ffffff;
@@ -114,11 +125,20 @@
         font-weight: bold;
         color: #ffffff;
     }
+    .wp-block-page-list li:hover {
+        transform: translateX(10px); /* Di chuyển sang phải khi hover */
+    }
     .wp-block-page-list li a:hover {
-        color: #eeeeee;
+        color: #ffffff; /* Màu trắng đậm */
+        font-weight: bold; /* Tăng độ đậm */
+    }
+    .wp-block-page-list li:hover {
+        color: #ffffff; /* Màu trắng đậm */
+        font-weight: bold; /* Tăng độ đậm */
     }
     .wp-block-page-list li a:hover::before {
-        color: #eeeeee;
+        color: #ffffff;
+        font-weight: bold;
     }
 
     /* Responsive cho Pages List */
@@ -142,15 +162,17 @@
     .wp-block-categories li {
         padding: 5px 0;
         margin-left: 10px;
+        transition: all 0.3s ease; /* Thêm transition */
     }
     .wp-block-categories li a {
         text-decoration: none;
         position: relative;
         padding-left: 20px;
+        transition: all 0.3s ease; /* Thêm transition */
     }
     .wp-block-categories li a::before {
         content: "\f101"; /* Unicode fa-angle-double-right */
-        font-family: 'FontAwesome'; /* Sửa: Dấu nháy đơn */
+        font-family: 'FontAwesome';
         position: absolute;
         left: 0;
         color: inherit;
@@ -160,6 +182,13 @@
     .wp-block-categories li a:before:not([class*="fa"]) {
         content: ">> " !important;
         font-family: inherit !important;
+    }
+    .wp-block-categories li:hover {
+        transform: translateX(10px); /* Di chuyển sang phải khi hover */
+    }
+    .wp-block-categories li a:hover {
+        color: #ffffff; /* Màu trắng đậm */
+        font-weight: bold; /* Tăng độ đậm */
     }
 
     /* Responsive cho Categories List */
@@ -175,9 +204,11 @@
         }
     }
 
-    .wp-block-pages-list__item:hover{
-        transform: translateX(10px);
+    .ml-ql{
+        margin-left: 10px;
     }
+
+    /* Đã xóa .wp-block-pages-list__item:hover cũ để tránh xung đột */
 </style>
 
 <!-- Footer -->
@@ -185,19 +216,19 @@
     <div class="container">
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-4">
-                <h5> Quick links</h5> <!-- Thêm | để giống hình ảnh -->
+                <h5 class="ml-ql">Quick links</h5>
                 <?php if (is_active_sidebar('sidebar-1')) : ?>
                     <?php dynamic_sidebar('sidebar-1'); ?>
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <h5> Quick links</h5>
-                <?php if (is_active_sidebar('sidebar-2')) : ?> <!-- Sửa: footer-widget-2 thay vì 3 -->
+                <h5 class="ml-ql">Quick links</h5>
+                <?php if (is_active_sidebar('sidebar-2')) : ?>
                     <?php dynamic_sidebar('sidebar-2'); ?>
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <h5> Quick links</h5>
+                <h5 class="ml-ql">Quick links</h5>
                 <?php if (is_active_sidebar('sidebar-3')) : ?>
                     <?php dynamic_sidebar('sidebar-3'); ?>
                 <?php endif; ?>
