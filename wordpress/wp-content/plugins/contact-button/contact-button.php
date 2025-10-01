@@ -2,8 +2,8 @@
 /**
  * Plugin Name: Nút Liên Hệ Tư Vấn
  * Plugin URI: https://yourwebsite.com
- * Description: Plugin tạo nút liên hệ với nhiều tư vấn viên (Zalo và số điện thoại), có thể thiết lập khác nhau cho mỗi trang
- * Version: 2.1
+ * Description: Plugin tạo nút liên hệ với nhiều tư vấn viên (Zalo, Messenger và số điện thoại), có thể thiết lập khác nhau cho mỗi trang
+ * Version: 2.2
  * Author: Vũ Đình Thiện
  * License: GPL2
  */
@@ -32,12 +32,12 @@ class ContactButtonPlugin {
     }
     
     public function enqueue_scripts() {
-        wp_enqueue_script('contact-button-script', plugin_dir_url(__FILE__) . 'contact-button.js', array('jquery'), '2.1', true);
+        wp_enqueue_script('contact-button-script', plugin_dir_url(__FILE__) . 'contact-button.js', array('jquery'), '2.2', true);
     }
     
     public function admin_scripts() {
         wp_enqueue_script('jquery');
-        wp_enqueue_script('contact-admin-js', plugin_dir_url(__FILE__) . 'admin.js', array('jquery'), '2.1', true);
+        wp_enqueue_script('contact-admin-js', plugin_dir_url(__FILE__) . 'admin.js', array('jquery'), '2.2', true);
         wp_localize_script('contact-admin-js', 'contact_ajax', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('contact_nonce')
@@ -100,6 +100,12 @@ class ContactButtonPlugin {
                                            value="<?php echo esc_attr($contact['zalo']); ?>" class="regular-text" /></td>
                                 </tr>
                                 <tr>
+                                    <td><label>Facebook Messenger (ID hoặc username):</label><br>
+                                    <input type="text" name="contact_button_default_contacts[<?php echo $index; ?>][messenger]" 
+                                           value="<?php echo esc_attr(isset($contact['messenger']) ? $contact['messenger'] : ''); ?>" class="regular-text" 
+                                           placeholder="VD: 100012345678910 hoặc yourusername" /></td>
+                                </tr>
+                                <tr>
                                     <td><button type="button" class="button remove-contact">Xóa</button></td>
                                 </tr>
                             </table>
@@ -151,6 +157,7 @@ class ContactButtonPlugin {
                     '<tr><td><label>Tên:</label><br><input type="text" name="contact_button_default_contacts[' + contactIndex + '][name]" value="" class="regular-text" /></td></tr>' +
                     '<tr><td><label>Số điện thoại:</label><br><input type="text" name="contact_button_default_contacts[' + contactIndex + '][phone]" value="" class="regular-text" /></td></tr>' +
                     '<tr><td><label>Zalo:</label><br><input type="text" name="contact_button_default_contacts[' + contactIndex + '][zalo]" value="" class="regular-text" /></td></tr>' +
+                    '<tr><td><label>Facebook Messenger (ID hoặc username):</label><br><input type="text" name="contact_button_default_contacts[' + contactIndex + '][messenger]" value="" class="regular-text" placeholder="VD: 100012345678910 hoặc yourusername" /></td></tr>' +
                     '<tr><td><button type="button" class="button remove-contact">Xóa</button></td></tr>' +
                     '</table><hr></div>';
                 
@@ -201,6 +208,7 @@ class ContactButtonPlugin {
                 echo '<label>Tên:</label><br><input type="text" name="page_contacts[' . $index . '][name]" value="' . esc_attr($contact['name']) . '" style="width: 100%; margin-bottom: 5px;" /><br>';
                 echo '<label>SĐT:</label><br><input type="text" name="page_contacts[' . $index . '][phone]" value="' . esc_attr($contact['phone']) . '" style="width: 100%; margin-bottom: 5px;" /><br>';
                 echo '<label>Zalo:</label><br><input type="text" name="page_contacts[' . $index . '][zalo]" value="' . esc_attr($contact['zalo']) . '" style="width: 100%; margin-bottom: 5px;" /><br>';
+                echo '<label>Messenger:</label><br><input type="text" name="page_contacts[' . $index . '][messenger]" value="' . esc_attr(isset($contact['messenger']) ? $contact['messenger'] : '') . '" style="width: 100%; margin-bottom: 5px;" placeholder="ID hoặc username" /><br>';
                 echo '<button type="button" class="button remove-page-contact" style="background: #dc3232; color: white;">Xóa</button>';
                 echo '</div>';
             }
@@ -219,6 +227,7 @@ class ContactButtonPlugin {
                     "<label>Tên:</label><br><input type=\"text\" name=\"page_contacts[" + pageContactIndex + "][name]\" value=\"\" style=\"width: 100%; margin-bottom: 5px;\" /><br>" +
                     "<label>SĐT:</label><br><input type=\"text\" name=\"page_contacts[" + pageContactIndex + "][phone]\" value=\"\" style=\"width: 100%; margin-bottom: 5px;\" /><br>" +
                     "<label>Zalo:</label><br><input type=\"text\" name=\"page_contacts[" + pageContactIndex + "][zalo]\" value=\"\" style=\"width: 100%; margin-bottom: 5px;\" /><br>" +
+                    "<label>Messenger:</label><br><input type=\"text\" name=\"page_contacts[" + pageContactIndex + "][messenger]\" value=\"\" style=\"width: 100%; margin-bottom: 5px;\" placeholder=\"ID hoặc username\" /><br>" +
                     "<button type=\"button\" class=\"button remove-page-contact\" style=\"background: #dc3232; color: white;\">Xóa</button>" +
                     "</div>";
                 
@@ -254,11 +263,12 @@ class ContactButtonPlugin {
         $contacts = array();
         if (isset($_POST['page_contacts']) && is_array($_POST['page_contacts'])) {
             foreach ($_POST['page_contacts'] as $contact) {
-                if (!empty($contact['name']) || !empty($contact['phone']) || !empty($contact['zalo'])) {
+                if (!empty($contact['name']) || !empty($contact['phone']) || !empty($contact['zalo']) || !empty($contact['messenger'])) {
                     $contacts[] = array(
                         'name' => sanitize_text_field($contact['name']),
                         'phone' => sanitize_text_field($contact['phone']),
-                        'zalo' => sanitize_text_field($contact['zalo'])
+                        'zalo' => sanitize_text_field($contact['zalo']),
+                        'messenger' => sanitize_text_field(isset($contact['messenger']) ? $contact['messenger'] : '')
                     );
                 }
             }
@@ -272,12 +282,7 @@ class ContactButtonPlugin {
             return;
         }
         
-        
-        // If singular page has disabled, do not render
-        if (is_singular() && get_post_meta(get_the_ID(), '_contact_button_disable', true)) {
-            return;
-        }
-// Check if disabled for current page
+        // Check if disabled for current page
         if (is_singular() && get_post_meta(get_the_ID(), '_contact_button_disable', true)) {
             return;
         }
@@ -305,7 +310,7 @@ class ContactButtonPlugin {
         // Filter out empty contacts
         $valid_contacts = array();
         foreach ($contacts as $contact) {
-            if (!empty($contact['phone']) || !empty($contact['zalo'])) {
+            if (!empty($contact['phone']) || !empty($contact['zalo']) || !empty($contact['messenger'])) {
                 $valid_contacts[] = $contact;
             }
         }
@@ -332,18 +337,20 @@ class ContactButtonPlugin {
                         </svg>
                     </div>
                     
+                    <!-- Messenger Icon -->
+                    <div class="contact-icon messenger-icon">
+                        <img src="<?php echo esc_url( plugins_url( 'Facebook_Messenger_logo_2020.svg.png', __FILE__ ) ); ?>"
+                        alt="Message" style="width:24px;height:24px;">
+                    </div>
+                    
                     <!-- Zalo Icon -->
                     <div class="contact-icon zalo-icon">
-                        <img
-                        src="<?php echo esc_url( plugins_url( 'Icon_of_Zalo.svg.png', __FILE__ ) ); ?>"
+                        <img src="<?php echo esc_url( plugins_url( 'Icon_of_Zalo.svg.png', __FILE__ ) ); ?>"
                         alt="Zalo" style="width:24px;height:24px;">
                     </div>
                 </div>
             </div>
             <div class="contact-options">
-                <!-- <div class="contact-options-header">
-                    <h3>Liên hệ với chúng tôi</h3>
-                </div> -->
                 <div class="contact-options-content">
                     <?php foreach ($valid_contacts as $index => $contact): ?>
                         <?php if (!empty($contact['name'])): ?>
@@ -370,12 +377,27 @@ class ContactButtonPlugin {
                             </a>
                             <?php endif; ?>
                             
+                            <?php if (!empty($contact['messenger'])): ?>
+                            <a href="https://m.me/<?php echo esc_attr($contact['messenger']); ?>" 
+                            class="contact-option messenger-option" target="_blank" rel="noopener">
+                                <div class="contact-option-icon messenger-icon-bg">
+                                    <img src="<?php echo esc_url( plugins_url( 'Facebook_Messenger_logo_2020.svg.png', __FILE__ ) ); ?>"
+                                    alt="Message" style="width:24px;height:24px;">
+                                </div>
+                                <div class="contact-option-content">
+                                    <div class="contact-option-title">Chat Messenger</div>
+                                    <div class="contact-option-subtitle">
+                                        <?php echo esc_html(!empty($contact['name']) ? $contact['name'] : $contact['messenger']); ?>
+                                    </div>
+                                </div>
+                            </a>
+                            <?php endif; ?>
+                            
                             <?php if (!empty($contact['zalo'])): ?>
                             <a href="https://zalo.me/<?php echo esc_attr($contact['zalo']); ?>" 
                             class="contact-option zalo-option" target="_blank" rel="noopener">
                                 <div class="contact-option-icon zalo-icon">
-                                    <img
-                                    src="<?php echo esc_url( plugins_url( 'Icon_of_Zalo.svg.png', __FILE__ ) ); ?>"
+                                    <img src="<?php echo esc_url( plugins_url( 'Icon_of_Zalo.svg.png', __FILE__ ) ); ?>"
                                     alt="Zalo" style="width:24px;height:24px;">
                                 </div>
                                 <div class="contact-option-content">
@@ -481,7 +503,7 @@ class ContactButtonPlugin {
         
         /* Animation cho các icon khi chưa click */
         .contact-main-btn:not(.clicked) .contact-icon {
-            animation: iconRotate 4s infinite;
+            animation: iconRotate 5.33s infinite;
         }
         
         .contact-main-btn:not(.clicked) .menu-icon {
@@ -492,16 +514,20 @@ class ContactButtonPlugin {
             animation-delay: 1.33s;
         }
         
-        .contact-main-btn:not(.clicked) .zalo-icon {
+        .contact-main-btn:not(.clicked) .messenger-icon {
             animation-delay: 2.66s;
         }
         
+        .contact-main-btn:not(.clicked) .zalo-icon {
+            animation-delay: 4s;
+        }
+        
         @keyframes iconRotate {
-            0%, 25% { 
+            0%, 20% { 
                 opacity: 1; 
                 transform: scale(1) rotateY(0deg) rotateZ(0deg);
             }
-            28%, 95% { 
+            23%, 95% { 
                 opacity: 0; 
                 transform: scale(0.3) rotateY(180deg) rotateZ(360deg);
             }
@@ -525,7 +551,6 @@ class ContactButtonPlugin {
             transform: translateY(20px) scale(0.95);
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1px solid rgba(0, 0, 0, 0.08);
-            /* Responsive height handling */
             max-height: 70vh;
             overflow: hidden;
             display: flex;
@@ -538,26 +563,9 @@ class ContactButtonPlugin {
             transform: translateY(0) scale(1);
         }
         
-        .contact-options-header {
-            padding: 20px 20px 15px;
-            border-bottom: 1px solid #f0f0f0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 16px 16px 0 0;
-            flex-shrink: 0;
-        }
-        
-        .contact-options-header h3 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 600;
-            color: #333;
-            text-align: center;
-        }
-        
         .contact-options-content {
             overflow-y: auto;
             flex: 1;
-            /* Custom scrollbar */
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 132, 255, 0.3) transparent;
         }
@@ -652,6 +660,19 @@ class ContactButtonPlugin {
             left: 0;
         }
         
+        .messenger-option {
+            border-color: rgba(0, 132, 255, 0.2);
+            background: rgba(0, 132, 255, 0.05);
+        }
+        
+        .messenger-option::before {
+            background: linear-gradient(135deg, #00B2FF, #006AFF);
+        }
+        
+        .messenger-option:hover::before {
+            left: 0;
+        }
+        
         .zalo-option {
             border-color: rgba(0, 132, 255, 0.2);
             background: rgba(0, 132, 255, 0.05);
@@ -694,6 +715,10 @@ class ContactButtonPlugin {
             background: rgba(37, 211, 102, 0.1);
         }
         
+        .messenger-option .contact-option-icon.messenger-icon-bg {
+            background: rgba(0, 132, 255, 0.1);
+        }
+        
         .zalo-option .contact-option-icon {
             background: rgba(0, 132, 255, 0.1);
         }
@@ -706,6 +731,10 @@ class ContactButtonPlugin {
         
         .phone-option .contact-option-icon svg {
             fill: #25D366;
+        }
+        
+        .messenger-option .contact-option-icon svg {
+            fill: #0084FF;
         }
         
         .zalo-option .contact-option-icon svg {
@@ -824,7 +853,7 @@ class ContactButtonPlugin {
             }
         }
         
-        /* Màn hình nhỏ hơn (high density phone) */
+        /* Màn hình nhỏ hơn */
         @media (max-width: 480px) {
             .contact-options {
                 min-width: 260px;
@@ -846,7 +875,7 @@ class ContactButtonPlugin {
             }
         }
         
-        /* Màn hình cao độ thấp (landscape) */
+        /* Màn hình cao độ thấp */
         @media (max-height: 600px) {
             #contact-button-widget {
                 bottom: 10px;
@@ -1052,7 +1081,8 @@ function contact_button_activate() {
         array(
             'name' => 'Tư vấn viên 1',
             'phone' => '',
-            'zalo' => ''
+            'zalo' => '',
+            'messenger' => ''
         )
     );
     add_option('contact_button_default_contacts', $default_contacts);

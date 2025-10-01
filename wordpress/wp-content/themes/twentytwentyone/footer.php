@@ -174,6 +174,10 @@
             font-size: 14px;
         }
     }
+
+    .wp-block-pages-list__item:hover{
+        transform: translateX(10px);
+    }
 </style>
 
 <!-- Footer -->
@@ -181,19 +185,19 @@
     <div class="container">
         <div class="row" style="margin-top: 20px;">
             <div class="col-md-4">
-                <h5>| Quick links</h5> <!-- Thêm | để giống hình ảnh -->
+                <h5> Quick links</h5> <!-- Thêm | để giống hình ảnh -->
                 <?php if (is_active_sidebar('sidebar-1')) : ?>
                     <?php dynamic_sidebar('sidebar-1'); ?>
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <h5>| Quick links</h5>
+                <h5> Quick links</h5>
                 <?php if (is_active_sidebar('sidebar-2')) : ?> <!-- Sửa: footer-widget-2 thay vì 3 -->
                     <?php dynamic_sidebar('sidebar-2'); ?>
                 <?php endif; ?>
             </div>
             <div class="col-md-4">
-                <h5>| Quick links</h5>
+                <h5> Quick links</h5>
                 <?php if (is_active_sidebar('sidebar-3')) : ?>
                     <?php dynamic_sidebar('sidebar-3'); ?>
                 <?php endif; ?>

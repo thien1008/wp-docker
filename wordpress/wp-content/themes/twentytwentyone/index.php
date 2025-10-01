@@ -48,7 +48,7 @@
 
 .post-header {
     display: flex;
-    align-items: baseline;
+    align-items: flex-start;
     gap: 20px;
     margin-bottom: 15px;
 }
@@ -70,7 +70,7 @@
     top: 0;
     width: 2px;
     height: 100%;
-    background-color: #0073aa;
+    background-color: #ccc;
 }
 
 .post-date-display::before {
@@ -80,7 +80,7 @@
     left: 0;
     right: 0;
     height: 2px;
-    background-color: #0073aa;
+    background-color: #ccc;
 }
 
 .post-day {
@@ -116,11 +116,19 @@
     line-height: 1.2;
 }
 
+/* Phần bên phải chứa title và categories */
+.post-title-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .post-title {
     font-size: 24px;
     font-weight: 600;
     margin: 0;
-    flex: 1;
+    line-height: 1.3;
 }
 
 .post-title a {
@@ -134,27 +142,26 @@
 }
 
 .post-categories {
-    margin-bottom: 12px;
+    margin: 0;
+}
+
+.post-categories span {
+    color: #6c757d;
+    font-size: 13px;
+    margin-right: 8px;
 }
 
 .post-categories a {
     display: inline-block;
-    background: #f8f9fa;
-    color: #6c757d;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
+    color: #0073aa;
+    font-size: 13px;
     text-decoration: none;
-    margin-right: 8px;
-    margin-bottom: 4px;
-    border: 1px solid #e9ecef;
     transition: all 0.3s ease;
 }
 
 .post-categories a:hover {
-    background: #0073aa;
-    color: white;
-    border-color: #0073aa;
+    color: #005a87;
+    text-decoration: underline;
 }
 
 .post-excerpt {
@@ -197,8 +204,16 @@
     
     .post-header {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         align-items: flex-start;
+    }
+    
+    .post-date-display {
+        padding-bottom: 15px;
+    }
+    
+    .post-date-display::after {
+        display: none;
     }
     
     .post-day {
@@ -265,21 +280,25 @@
                                 </div>
                             </div>
                             
-                            <h2 class="post-title">
-                                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                            </h2>
-                        </div>
-                        
-                        <div class="post-categories">
-                            <?php
-                            $categories = get_the_category();
-                            if (!empty($categories)) {
-                                echo '<span style="color: #6c757d; font-size: 12px; margin-right: 8px;">Categories:</span>';
-                                foreach ($categories as $category) {
-                                    echo '<a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>';
-                                }
-                            }
-                            ?>
+                            <div class="post-title-section">
+                                <h2 class="post-title">
+                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                </h2>
+                                
+                                <div class="post-categories">
+                                    <?php
+                                    $categories = get_the_category();
+                                    if (!empty($categories)) {
+                                        echo '<span>Categories</span>';
+                                        $cat_links = array();
+                                        foreach ($categories as $category) {
+                                            $cat_links[] = '<a href="' . esc_url(get_category_link($category->term_id)) . '">' . esc_html($category->name) . '</a>';
+                                        }
+                                        echo implode(', ', $cat_links);
+                                    }
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                         
                         <div class="post-excerpt">

@@ -20,16 +20,18 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
+/** The name of the database for WordPress */
 define( 'DB_NAME', 'wordpress' );
 
-/** Database username */
-define( 'DB_USER', 'wp_user' );
+/** MySQL database username */
+define( 'DB_USER', 'wordpress' );
 
-/** Database password */
-define( 'DB_PASSWORD', 'wp_pass' );
+/** MySQL database password */
+define( 'DB_PASSWORD', 'wordpress' );
 
-/** Database hostname */
-define( 'DB_HOST', 'db:3306' );
+/** MySQL hostname */
+define( 'DB_HOST', 'db:3306' );   // ✅ dùng tên service trong docker-compose.yml
+
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8mb4' );
