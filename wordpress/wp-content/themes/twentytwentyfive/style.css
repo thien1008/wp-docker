@@ -59,3 +59,134 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 .more-link {
 	display: block;
 }
+/* BOX BÊN NGOÀI */
+.post-item {
+    display: flex;
+    gap: 20px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+	width: 70% !important;
+}
+
+.post-item:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+}
+
+/* ẢNH BÊN TRÁI */
+.image {
+    flex: 0 0 35%;
+    overflow: hidden;           /* Ngăn ảnh tràn viền */
+}
+
+.image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.post-item:hover .image img {
+    transform: scale(1.08);     /* Hiệu ứng phóng ảnh khi hover */
+}
+
+/* BOX BÊN PHẢI */
+.content-post-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;          /* Đảm bảo không bị màu khác */
+    box-shadow: none !important; /* Xóa bóng dư thừa */
+}
+
+/* NGÀY THÁNG */
+.date-title-cate {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.date {
+    text-align: center;
+    min-width: 60px;
+}
+
+.date .day {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0050d8;
+    line-height: 1;
+}
+
+.date .month-year {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #666;
+    line-height: 1.2;
+    margin-top: 4px;
+}
+
+/* TIÊU ĐỀ + CATEGORY */
+.box-title-cate {
+    flex: 1;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+    text-decoration: none;
+    display: block;
+    transition: color 0.3s;
+}
+
+.title:hover {
+    color: #0050d8;
+}
+
+.category {
+    font-size: 13px;
+    color: #777;
+}
+
+/* NỘI DUNG */
+.chu {
+    font-size: 14px;
+    color: #555;
+    margin-top: 6px;
+    line-height: 1.6;
+	padding: 0;
+	text-align: left;
+}
+
+/* Bóng đổ luôn hiển thị ở bên phải và dưới của box bên phải */
+.content-post-left {
+    position: relative;
+    background: #fff;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.08);  /* bóng nhẹ bên phải & dưới */
+    border-radius: 6px;
+    padding: 10px 15px;
+}
+
+/* Viền dưới và phải của khu vực chứa ngày tháng, title, category */
+.date {
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+
+}
+
+.ngay{
+	font-size: 18px;
+}
+
+.thang-nam{
+	font-size: 18px;
+}
