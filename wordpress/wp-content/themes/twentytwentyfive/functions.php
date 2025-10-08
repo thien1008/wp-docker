@@ -8,6 +8,14 @@
  * @subpackage Twenty_Twenty_Five
  * @since Twenty Twenty-Five 1.0
  */
+// Đăng ký menu
+function my_theme_setup() {
+  register_nav_menus([
+    'primary' => __( 'Main Menu', 'mytheme' ),
+	 'secondary' => __('Footer Menu', 'mytheme'),
+  ]);
+}
+add_action('after_setup_theme', 'my_theme_setup');
 
 // Adds theme support for post formats.
 if ( ! function_exists( 'twentytwentyfive_post_format_setup' ) ) :
