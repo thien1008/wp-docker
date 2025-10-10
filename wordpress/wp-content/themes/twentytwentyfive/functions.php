@@ -15,6 +15,24 @@ function my_theme_setup() {
 	 'secondary' => __('Footer Menu', 'mytheme'),
   ]);
 }
+add_shortcode('search_title', function() {
+    if (is_search()) {
+        $query = get_search_query();
+
+        // Kiểm tra nếu không có kết quả
+        if (!have_posts()) {
+            return '
+                <div class="search-result-header">
+                    <h4 class="search-heading" style="display: flex; justify-content: center;"> <span style="color:hsl(343.48deg 76.72% 45.49%);">Search: </span>  “ ' . esc_html($query) . '”</h4>
+                </div>
+            ';
+        } else {
+            // Có kết quả
+            return '<h2 class="search-heading"> <span style="color:hsl(343.48deg 76.72% 45.49%);">Search: </span>  “' . esc_html($query) . '”</h2>';
+        }
+    }
+    return '';
+});
 add_action('after_setup_theme', 'my_theme_setup');
 
 // Adds theme support for post formats.
@@ -61,7 +79,8 @@ if ( ! function_exists( 'twentytwentyfive_enqueue_styles' ) ) :
 			'twentytwentyfive-style',
 			get_parent_theme_file_uri( 'style.css' ),
 			array(),
-			wp_get_theme()->get( 'Version' )
+			//wp_get_theme()->get( 'Version' )
+			time() // Xóa cache CSS khi chỉnh sửa
 		);
 	}
 endif;
