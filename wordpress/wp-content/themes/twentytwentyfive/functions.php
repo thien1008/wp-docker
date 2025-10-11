@@ -28,7 +28,11 @@ add_shortcode('search_title', function() {
             ';
         } else {
             // Có kết quả
-            return '<h2 class="search-heading"> <span style="color:hsl(343.48deg 76.72% 45.49%);">Search: </span>  “' . esc_html($query) . '”</h2>';
+            return '
+				<div class="search-result-header">
+                    <h4 class="search-heading" style="display: flex; justify-content: center;"> <span style="color:hsl(343.48deg 76.72% 45.49%);">Search: </span>  “ ' . esc_html($query) . '”</h4>
+                </div>
+				';
         }
     }
     return '';
