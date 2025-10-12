@@ -285,3 +285,73 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 .icon-acount{
     display: block !important;
 }
+
+.footer-3column{
+    display: flex !important;
+    justify-content: space-between !important;
+    list-style: none !important;
+}
+
+.footer-box_text1{
+    padding: 0 !important;
+}
+
+.wp-block-column .wp-block-page-list{
+    list-style: none !important;
+    text-decoration: none !important;
+}
+
+.wp-block-column .wp-block-page-list a{
+    text-decoration: none !important;
+}
+
+.wp-block-column .wp-block-page-list li:hover{
+    transition: all 0.2s ease; /* Hiệu ứng mượt */
+    transform: translateX(-7px); /* lệch sang trái 5px */
+}
+
+/* icon */
+.is-style-logos-only{
+    
+    color: #fff !important;
+}
+
+.is-style-logos-only:hover{
+    color: #fff !important;
+    scale: 1.2 !important;
+}
+
+.quick-links li::before {
+  content: "» ";      /* Dấu mũi tên */
+  color: #fff;        /* Màu của mũi tên */
+  font-weight: bold;  /* Đậm hơn một chút */
+}
+
+.quick-links {
+  padding-left: 0 !important; /* Loại bỏ padding mặc định */
+}
+
+.quick-links-title {
+  position: relative;
+  padding-left: 10px; /* tạo khoảng cách giữa gạch và chữ */
+}
+
+.quick-links-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;           /* độ dày của gạch dọc */
+  height: 100%;
+  background-color: #fff;  /* màu gạch (trắng) */
+  border-radius: 2px;
+}
+
+.wp-block-social-links:hover {
+    scale: unset !important;
+}
+
+.wp-block-social-links ul>li:hover {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
