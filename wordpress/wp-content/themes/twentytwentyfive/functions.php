@@ -8,6 +8,22 @@
  * @subpackage Twenty_Twenty_Five
  * @since Twenty Twenty-Five 1.0
  */
+
+// Customize comment form for logged-in users
+// function custom_comment_form_args($args) {
+//     if (is_user_logged_in()) {
+//         $args['title_reply'] = 'Make a Post';
+//         $args['label_submit'] = 'Share';
+//         $args['comment_field'] = '
+//             <p class="comment-form-comment">
+//                 <textarea id="comment" name="comment" placeholder="What are you thinking..." required></textarea>
+//             </p>';
+//         $args['class_submit'] = 'btn-share';
+//     }
+//     return $args;
+// }
+// add_filter('comment_form_defaults', 'custom_comment_form_args');
+
 // Đăng ký menu
 function my_theme_setup() {
   register_nav_menus([
@@ -187,3 +203,57 @@ if ( ! function_exists( 'twentytwentyfive_format_binding' ) ) :
 		}
 	}
 endif;
+
+
+// Ghi đè form bình luận giống giao diện "Make a Post"
+// function custom_comment_form($args) {
+//     // Nếu người dùng đã đăng nhập
+//     if (is_user_logged_in()) {
+//         $args['title_reply'] = ''; // bỏ tiêu đề mặc định
+//         $args['label_submit'] = 'Share';
+//         $args['comment_field'] = '
+//             <div class="make-post-box">
+//                 <div class="make-post-header">Make a Post</div>
+//                 <textarea id="comment" name="comment" placeholder="What are you thinking..." required></textarea>
+//                 <button type="submit" class="btn-share">Share</button>
+//             </div>';
+//         $args['comment_notes_before'] = '';
+//         $args['comment_notes_after'] = '';
+//         $args['class_submit'] = 'hidden-submit'; // ẩn submit mặc định
+//     } else {
+//         // Chưa login → hiển thị link đăng nhập
+//         $args['title_reply'] = '';
+//         $args['comment_field'] = '<p>You need to <a href="' . wp_login_url() . '">log in</a> to make a post.</p>';
+//     }
+//     return $args;
+// }
+// add_filter('comment_form_defaults', 'custom_comment_form');
+
+// ---------- CUSTOM COMMENT FORM (Make a Post look) ----------
+function tt25_custom_comment_form_defaults( $defaults ) {
+	// Nếu đang đăng nhập thì thay giao diện
+	if ( is_user_logged_in() ) {
+		$defaults['title_reply'] = '';                 // ẩn title mặc định
+		$defaults['comment_notes_before'] = '';       // ẩn note trước
+		$defaults['comment_notes_after']  = '';       // ẩn note sau
+		$defaults['label_submit'] = 'share';          // text nút
+		// Thay toàn bộ field comment bằng markup tùy chỉnh
+		$defaults['comment_field'] = '
+			<div class="make-post-wrap">
+				<div class="make-post-inner">
+					<div class="make-post-tab">Make a Post</div>
+					<div class="make-post-body">
+						<textarea id="comment" name="comment" placeholder="What are you thinking..." required aria-required="true"></textarea>
+						<div class="make-post-actions">
+							<button type="submit" class="btn-share">share</button>
+						</div>
+					</div>
+				</div>
+			</div>';
+		// ẩn nút submit mặc định bằng lớp (cách an toàn)
+		$defaults['class_submit'] = 'hidden-submit';
+	}
+
+	return $defaults;
+}
+add_filter( 'comment_form_defaults', 'tt25_custom_comment_form_defaults' );

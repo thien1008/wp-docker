@@ -19,37 +19,46 @@ Tags: one-column, custom-colors, custom-menu, custom-logo, editor-style, feature
  * https://github.com/WordPress/gutenberg/issues/42319
  */
 a {
-	text-decoration-thickness: 1px !important;
-	text-underline-offset: .1em;
+    text-decoration-thickness: 1px !important;
+    text-underline-offset: .1em;
 }
 
 /* Focus styles */
 :where(.wp-site-blocks *:focus) {
-	outline-width: 2px;
-	outline-style: solid;
+    outline-width: 2px;
+    outline-style: solid;
 }
 
 /* Increase the bottom margin on submenus, so that the outline is visible. */
 .wp-block-navigation .wp-block-navigation-submenu .wp-block-navigation-item:not(:last-child) {
-	margin-bottom: 3px;
+    margin-bottom: 3px;
 }
 
 /* Increase the outline offset on the parent menu items, so that the outline does not touch the text. */
 .wp-block-navigation .wp-block-navigation-item .wp-block-navigation-item__content {
-	outline-offset: 4px;
+    outline-offset: 4px;
 }
 
 /* Remove outline offset from the submenus, otherwise the outline is visible outside the submenu container. */
 .wp-block-navigation .wp-block-navigation-item ul.wp-block-navigation__submenu-container .wp-block-navigation-item__content {
-	outline-offset: 0;
+    outline-offset: 0;
 }
 
 /*
  * Progressive enhancement to reduce widows and orphans
  * https://github.com/WordPress/gutenberg/issues/55190
  */
-h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
-	text-wrap: pretty;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+blockquote,
+caption,
+figcaption,
+p {
+    text-wrap: pretty;
 }
 
 /*
@@ -57,28 +66,30 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
  * https://github.com/WordPress/gutenberg/issues/65934
 */
 .more-link {
-	display: block;
+    display: block;
 }
+
 /* BOX BÊN NGOÀI */
 .post-item {
     display: flex;
     gap: 20px;
     background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-	width: 70% !important;
+    width: 70% !important;
 }
 
 .post-item:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     transform: translateY(-4px);
 }
 
 /* ẢNH BÊN TRÁI */
 .image {
     flex: 0 0 35%;
-    overflow: hidden;           /* Ngăn ảnh tràn viền */
+    overflow: hidden;
+    /* Ngăn ảnh tràn viền */
 }
 
 .image img {
@@ -90,7 +101,8 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 }
 
 .post-item:hover .image img {
-    transform: scale(1.08);     /* Hiệu ứng phóng ảnh khi hover */
+    transform: scale(1.08);
+    /* Hiệu ứng phóng ảnh khi hover */
 }
 
 /* BOX BÊN PHẢI */
@@ -99,8 +111,10 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: #fff;          /* Đảm bảo không bị màu khác */
-    box-shadow: none !important; /* Xóa bóng dư thừa */
+    background: #fff;
+    /* Đảm bảo không bị màu khác */
+    box-shadow: none !important;
+    /* Xóa bóng dư thừa */
 }
 
 /* NGÀY THÁNG */
@@ -161,15 +175,16 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
     color: #555;
     margin-top: 6px;
     line-height: 1.6;
-	padding: 0;
-	text-align: left;
+    padding: 0;
+    text-align: left;
 }
 
 /* Bóng đổ luôn hiển thị ở bên phải và dưới của box bên phải */
 .content-post-left {
     position: relative;
     background: #fff;
-    box-shadow: 4px 4px 8px rgba(0,0,0,0.08);  /* bóng nhẹ bên phải & dưới */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.08);
+    /* bóng nhẹ bên phải & dưới */
     border-radius: 6px;
     padding: 10px 15px;
 }
@@ -183,22 +198,22 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 
 }
 
-.ngay{
-	font-size: 18px;
+.ngay {
+    font-size: 18px;
 }
 
-.thang-nam{
-	font-size: 18px;
+.thang-nam {
+    font-size: 18px;
 }
 
-.menu-group{
+.menu-group {
     padding: 0;
     padding-bottom: 25px;
     margin-left: 30px !important;
     margin-right: 30px !important;
 }
 
-.search-full{
+.search-full {
     margin-right: 200px !important;
 }
 
@@ -207,22 +222,22 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
     justify-content: space-between;
 }
 
-.block-header{
+.block-header {
     padding-left: 20px !important;
     padding-right: 20px !important;
     border-radius: 5px !important;
 }
 
-.group-icon_search-text{
+.group-icon_search-text {
     padding: 0 !important;
     padding-bottom: 3px !important;
 }
 
-.group-avata-text{
+.group-avata-text {
     font-weight: bold;
 }
 
-.site-title{
+.site-title {
     font-size: 18px !important;
     color: #555 !important;
 }
@@ -233,13 +248,14 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
     border-radius: 2px !important;
 } */
 
-.search-result{
-   display: flex !important;
-   justify-content: center !important;
-   align-items: center !important;
-   padding: 30px 0px;
-   background-color: #f5efe0;
+.search-result {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 30px 0px;
+    background-color: #f5efe0;
 }
+
 .search-result .wp-block-search__inside-wrapper {
     width: 50% !important;
     display: flex;
@@ -248,7 +264,7 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
     flex: none;
 }
 
-.search-result .wp-block-search__inside-wrapper .wp-block-search__button{
+.search-result .wp-block-search__inside-wrapper .wp-block-search__button {
     background-color: green !important;
     color: white !important;
     border-radius: 7px !important;
@@ -260,7 +276,7 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
     font-size: 17px !important;
 }
 
-.search-result .wp-block-search__inside-wrapper  {
+.search-result .wp-block-search__inside-wrapper {
     position: relative;
     height: auto !important;
 }
@@ -271,80 +287,89 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
     height: 70px !important;
 }
 
-.sub-text-search{
+.sub-text-search {
     font-size: 18px !important;
     max-width: 500px !important;
 }
 
-.box-sub-text-search-result{
+.box-sub-text-search-result {
     padding-top: 5px !important;
     display: flex !important;
     justify-content: center !important;
 }
 
-.icon-acount{
+.icon-acount {
     display: block !important;
 }
 
-.footer-3column{
+.footer-3column {
     display: flex !important;
     justify-content: space-between !important;
     list-style: none !important;
 }
 
-.footer-box_text1{
+.footer-box_text1 {
     padding: 0 !important;
 }
 
-.wp-block-column .wp-block-page-list{
+.wp-block-column .wp-block-page-list {
     list-style: none !important;
     text-decoration: none !important;
 }
 
-.wp-block-column .wp-block-page-list a{
+.wp-block-column .wp-block-page-list a {
     text-decoration: none !important;
 }
 
-.wp-block-column .wp-block-page-list li:hover{
-    transition: all 0.2s ease; /* Hiệu ứng mượt */
-    transform: translateX(-7px); /* lệch sang trái 5px */
+.wp-block-column .wp-block-page-list li:hover {
+    transition: all 0.2s ease;
+    /* Hiệu ứng mượt */
+    transform: translateX(-7px);
+    /* lệch sang trái 5px */
 }
 
 /* icon */
-.is-style-logos-only{
-    
+.is-style-logos-only {
+
     color: #fff !important;
 }
 
-.is-style-logos-only:hover{
+.is-style-logos-only:hover {
     color: #fff !important;
     scale: 1.2 !important;
 }
 
 .quick-links li::before {
-  content: "» ";      /* Dấu mũi tên */
-  color: #fff;        /* Màu của mũi tên */
-  font-weight: bold;  /* Đậm hơn một chút */
+    content: "» ";
+    /* Dấu mũi tên */
+    color: #fff;
+    /* Màu của mũi tên */
+    font-weight: bold;
+    /* Đậm hơn một chút */
 }
 
 .quick-links {
-  padding-left: 0 !important; /* Loại bỏ padding mặc định */
+    padding-left: 0 !important;
+    /* Loại bỏ padding mặc định */
 }
 
 .quick-links-title {
-  position: relative;
-  padding-left: 10px; /* tạo khoảng cách giữa gạch và chữ */
+    position: relative;
+    padding-left: 10px;
+    /* tạo khoảng cách giữa gạch và chữ */
 }
 
 .quick-links-title::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;           /* độ dày của gạch dọc */
-  height: 100%;
-  background-color: #fff;  /* màu gạch (trắng) */
-  border-radius: 2px;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    /* độ dày của gạch dọc */
+    height: 100%;
+    background-color: #fff;
+    /* màu gạch (trắng) */
+    border-radius: 2px;
 }
 
 .wp-block-social-links:hover {
@@ -354,4 +379,269 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 .wp-block-social-links ul>li:hover {
     transform: scale(1.2);
     transition: transform 0.3s ease;
+}
+
+/* chỉnh sửa lại giao diện trang single post */
+.hinh-tron-date {
+    width: 80px !important;
+    height: 80px !important;
+}
+
+.box-hinh-tron-date {
+    justify-content: space-around !important;
+}
+
+
+.divider {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    /* Đường kẻ */
+    margin: 40px 0;
+}
+
+.divider::after {
+    content: '';
+    position: absolute;
+    left: 20%;
+    transform: translateX(-20%) rotate(45deg);
+    /* Xoay 45 độ */
+    top: -5px;
+    /* canh cho 2 đỉnh ngang với đường kẻ */
+
+    width: 10px;
+    height: 10px;
+
+    background-color: #ffffff;
+    /* Màu nền bên trong */
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.hinh-tron-date{
+    background-color: yellow !important;
+    border-radius: 50% !important;
+    justify-content: center;
+    gap: 0 !important;
+}
+
+.date-y{
+    border-bottom: 2px solid #111;
+}
+
+.group-date-left{
+    gap: 0 !important;
+    padding-left: 8px !important;
+    padding-right: 2px !important;
+}
+
+
+
+
+
+/* Container chính */
+.make-post-wrap {
+    max-width: 900px;
+    margin: 18px auto;
+}
+
+/* Khung ngoài */
+.make-post-inner {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    padding: 34px 22px 26px 22px; /* tăng padding-top để chừa chỗ cho dải xám */
+    box-shadow: none;
+    overflow: visible;
+}
+
+/* Dải nền xám phía trên (toàn bề ngang khung) */
+.make-post-inner::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 46px; /* chiều cao dải xám */
+    background: #f5f5f5; /* màu nền xám giống ảnh */
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom: 1px solid #e9e9e9; /* đường phân cách mảnh */
+    z-index: 1;
+}
+
+/* Tab header nhỏ phía trên-trái (đè lên dải xám) */
+.make-post-tab {
+    position: absolute;
+    top: 6px;               /* đặt tab đè lên dải xám */
+    left: 12px;
+    background: #f7f7f7;    /* màu tab (nhạt hơn dải xám để có viền) */
+    border: 1px solid #e0e0e0;
+    padding: 9px 14px;
+    border-radius: 6px 6px 0 0;
+    font-size: 15px;
+    color: #333;
+    box-shadow: none;
+    z-index: 2;             /* đảm bảo tab nằm trên dải xám */
+
+    border-bottom: 1px solid #fff !important;
+    background-color: #fff !important;
+}
+
+/* Nếu muốn tab có đường viền chỗ tiếp xúc với dải xám mịn hơn */
+.make-post-tab { border-bottom: none; }
+
+/* Body bên trong khung (không thay đổi) */
+.make-post-body { display: block; }
+
+/* textarea */
+.make-post-body textarea {
+    width: 100%;
+    min-height: 90px;
+    padding: 14px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #4a4a4a;
+    background: #fff;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    resize: vertical;
+    outline: none;
+    transition: border-color .12s ease, box-shadow .12s ease;
+}
+
+.make-post-body textarea:focus {
+    border-color: #cde3ff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.06);
+}
+
+/* action area - nút nằm sát phải dưới */
+.make-post-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+/* nút share */
+.btn-share {
+    background: #0096ff;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+#
+
+.btn-share:hover { background: #0077d1; }
+
+/* ẩn nút submit mặc định nếu còn */
+.hidden-submit { display: none !important; }
+
+/* ẩn label "Comment" mặc định */
+.comment-form-comment label,
+.comment-form .required { display: none !important; }
+
+/* Responsive */
+@media (max-width: 640px) {
+    .make-post-inner { padding: 28px 16px 20px 16px; }
+    .make-post-tab { left: 10px; top: 4px; padding: 7px 10px; font-size: 14px; }
+    .btn-share { padding: 8px 12px; }
+    .make-post-inner::before { height: 42px; }
+}
+
+.wp-block-post-comments-form .comment-form textarea {
+    margin-top: 45px !important;
+}
+
+
+/* Style cho block Categories */
+.wp-block-categories {
+  background: #fff;
+  padding: 16px 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #e6e6e6;
+  border-top: 25px solid transparent; /* độ dày đường sọc */
+  border-image: repeating-linear-gradient(
+    135deg,
+    #f5f5f5,
+    #f5f5f5 1px,
+    #eaeaea 1px,
+    #eaeaea 2px
+  ) 10;
+  min-height: 328px !important;
+}
+
+.wp-block-categories h2,
+.wp-block-categories .wp-block-heading {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  border-bottom: 4px solid #f2f2f2;
+  padding-bottom: 6px;
+}
+
+.wp-block-categories ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wp-block-categories li {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 10px 0;
+}
+
+.wp-block-categories li:last-child {
+  border-bottom: none;
+}
+
+/* Chấm tròn vàng */
+.wp-block-categories li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #ffcb05;
+  border-radius: 50%;
+  margin-right: 24px;
+  margin-left: 7px;
+}
+
+/* Link */
+.wp-block-categories a {
+  color: #337ab7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.wp-block-categories a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.has-x-large-font-size {
+    padding-bottom: 20px;
+    font-weight: 550;
+}
+
+
+#btn-view-all-post{
+    margin-top: 0px !important;
+}
+
+body .is-layout-flex {
+    justify-content: center !important;
+}
+
+.wp-block-post .wp-block-group .hinh-tron-date{
+    background-color: #02dcdc !important;
 }
