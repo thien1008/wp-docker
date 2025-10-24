@@ -77,7 +77,7 @@ p {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 70% !important;
+    /* width: 70% !important; */
 }
 
 .post-item:hover {
@@ -638,10 +638,263 @@ p {
     margin-top: 0px !important;
 }
 
-body .is-layout-flex {
+/* body .is-layout-flex {
     justify-content: center !important;
-}
+} */
 
 .wp-block-post .wp-block-group .hinh-tron-date{
     background-color: #02dcdc !important;
+}
+
+
+/* ====== KHỐI XEM NHIỀU ====== */
+
+/* Bố cục danh sách bài viết */
+.wp-block-group.xem-nhieu .wp-block-latest-posts {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Hai cột */
+  column-gap: 70px; /* Tăng khoảng cách giữa hai cột */
+  gap: 0;
+  counter-reset: xemnhieu-counter;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ddd;
+  position: relative; /* để vẽ gạch dọc */
+}
+
+.wp-block-group.xem-nhieu .wp-block-latest-posts::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - 10px); /* dịch sang trái 10px */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #e6e6e6;
+  pointer-events: none;
+}
+
+/* Mỗi bài viết */
+.wp-block-group.xem-nhieu .wp-block-latest-posts__post-title {
+  display: block;
+  position: relative;
+  padding: 10px 0 10px 34px; /* chừa chỗ cho số thứ tự */
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  line-height: 1.4;
+  color: #000;
+}
+
+/* Số thứ tự */
+.wp-block-group.xem-nhieu .wp-block-latest-posts__post-title::before {
+  counter-increment: xemnhieu-counter;
+  content: counter(xemnhieu-counter);
+  position: absolute;
+  left: 0;
+  top: 10px;
+  font-weight: 700;
+  font-size: 1.3em;
+}
+
+/* Thêm khoảng cách nhỏ cho cột phải (tránh sát gạch dọc) */
+.wp-block-group.xem-nhieu .wp-block-latest-posts > *:nth-child(2n) .wp-block-latest-posts__post-title {
+  padding-left: 40px; /* thêm đệm cho cột phải */
+}
+
+/* Hiệu ứng hover nhẹ */
+.wp-block-group.xem-nhieu .wp-block-latest-posts__post-title:hover {
+  text-decoration: underline;
+}
+
+/* Responsive: về 1 cột khi màn hình nhỏ */
+@media (max-width: 720px) {
+  .wp-block-group.xem-nhieu .wp-block-latest-posts {
+    grid-template-columns: 1fr;
+  }
+  .wp-block-group.xem-nhieu .wp-block-latest-posts::before {
+    display: none;
+  }
+}
+
+.wp-block-group.xem-nhieu {
+  text-align: left;
+  max-width: 695px;
+    min-width: 500px;
+}
+
+.wp-block-group.xem-nhieu p {
+  border-bottom: 2px solid #000;
+  display: inline-block;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+
+
+/* Khối Comments */
+.wp-block-group.comments-section {
+  max-width: 700px;
+  font-family: inherit;
+}
+
+/* Tiêu đề "Comments" */
+.wp-block-group.comments-section p {
+  font-weight: 600;
+  margin-bottom: 10px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+
+.comments-section p ::after
+{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 40px;
+  height: 2px;
+  background-color: #555;
+}/* Ẩn avatar */
+.wp-block-latest-comments__comment-avatar {
+  display: none !important;
+}
+
+/* Chỉ hiển thị phần nội dung bình luận */
+.wp-block-latest-comments__comment-meta,
+.wp-block-latest-comments__comment-author,
+.wp-block-latest-comments__comment-link,
+.wp-block-latest-comments__comment-date {
+  display: none !important;
+}
+
+/* Mỗi comment */
+.wp-block-latest-comments__comment {
+  border-bottom: 1px solid #eee;
+  padding: 6px 0;
+  margin: 0;
+}
+
+/* Nội dung comment */
+.wp-block-latest-comments__comment-excerpt p {
+  margin: 0;
+  color: #2a6db0; /* màu xanh như hình */
+  font-weight: 500;
+  text-decoration: none !important; /* bỏ gạch chân */
+  padding: 0;
+}
+
+/* Bỏ gạch chân khi hover */
+.wp-block-latest-comments__comment-excerpt p:hover {
+  text-decoration: none !important;
+}
+
+
+.wp-block-latest-comments {
+    padding: 0 !important;
+}
+
+/* .wp-block-group .comments-section .the-p-commment{
+    margin-left: 64px !important;
+} */
+
+/* .line-duoi-title-13 .wp-block-post-title{
+    border-bottom: 3px solid #000;
+} */
+
+.line-duoi-title-13 .wp-block-post-title {
+  position: relative;
+  display: inline-block; /* Để after căn theo nội dung */
+}
+
+.line-duoi-title-13 .wp-block-post-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0; /* nằm sát mép dưới */
+  left: 0; /* bắt đầu từ bên trái */
+  width: 60px; /* độ dài đường gạch */
+  height: 3px; /* độ dày (thay cho border-bottom) */
+  background-color: #000; /* màu đường gạch */
+}
+
+
+/* fix home */
+/* xem tât cả tin tức */
+.wp-container-core-group-is-layout-74c31d1c .alignfull {
+    max-width: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+/* model 15 */
+.comment-box {
+    margin-top: 30px;
+    font-family: "Times New Roman", serif;
+}
+
+.comment-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #aaa;
+    padding-bottom: 5px;
+}
+
+.comment-box .media {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.comment-box .media-left {
+    margin-right: 10px;
+    width: 60px;
+}
+
+.comment-box .media-left img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.comment-box .media-body {
+    flex: 1;
+}
+
+.comment-box .media-heading {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 7px 10px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.comment-box .media-heading:before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-width: 1px 0 0 1px;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 10px;
+    left: -6px;
+}
+
+.comment-box p {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.comment-replies {
+    margin-left: 40px; /* đẩy comment con sang phải */
+    border-left: 2px solid #ddd;
+    padding-left: 10px;
 }

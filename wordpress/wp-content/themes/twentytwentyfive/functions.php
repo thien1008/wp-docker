@@ -257,3 +257,224 @@ function tt25_custom_comment_form_defaults( $defaults ) {
 	return $defaults;
 }
 add_filter( 'comment_form_defaults', 'tt25_custom_comment_form_defaults' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Shortcode: [latest_timeline count="3" title="Latest News"]
+   - count: số bài (mặc định 3)
+   - title: tiêu đề (mặc định "Latest News")
+*/
+function tt_latest_timeline_sc($atts = [])
+{
+    $atts = shortcode_atts([
+        'count' => 3,
+        'title' => 'Latest News',
+    ], $atts, 'latest_timeline');
+
+    $posts = get_posts([
+        'numberposts' => (int) $atts['count'],
+        'post_status' => 'publish',
+    ]);
+    if (!$posts)
+        return '';
+
+    ob_start(); ?>
+    <div class="latepost-main">
+        <div class="timeline-wrapper">
+            <h3 class="timeline-title"><?php echo esc_html($atts['title']); ?></h3>
+            <ul class="timeline-list">
+                <?php foreach ($posts as $p):
+                    $link = get_permalink($p);
+                    $title = get_the_title($p);
+                    $date = get_the_date('j F, Y', $p);
+                    $excerpt = wp_trim_words(strip_tags(get_the_excerpt($p) ?: get_the_content(null, false, $p)), 20, '...');
+                    ?>
+                    <li class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <a class="timeline-link"
+                                    href="<?php echo esc_url($link); ?>"><?php echo esc_html($title); ?></a>
+                                <span class="timeline-date"><?php echo esc_html($date); ?></span>
+                            </div>
+                            <p class="timeline-excerpt"><?php echo esc_html($excerpt); ?></p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+add_shortcode('latest_timeline', 'tt_latest_timeline_sc');
+
+/* CSS cho timeline */
+add_action('wp_head', function () { ?>
+    <style>
+        .latepost-main {
+            background: #fff !important;
+            padding: 30px 40px !important;
+            border-radius: 6px !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .05) !important;
+        }
+
+        .latepost-main .timeline-title {
+            font-size: 24px !important;
+            font-weight: 700 !important;
+            color: #333 !important;
+            margin: 0 0 20px !important;
+        }
+
+        .latepost-main .timeline-list {
+            position: relative;
+            list-style: none;
+            margin: 0;
+            padding: 0px;
+            border-left: 2px solid #cfe8f7;
+        }
+
+        .latepost-main .timeline-item {
+            position: relative;
+            padding: 0 0 28px 25px;
+        }
+
+        /* make sure dots line up perfectly */
+        .latepost-main .timeline-dot {
+            position: absolute !important;
+            left: -8px !important;
+            top: 6px !important;
+            transform: translateY(0) !important;
+/* fine-tune vertical alignment */
+width: 14px !important;
+            height: 14px !important;
+            background: #fff;
+            border: 3px solid #2b6cb0;
+            border-radius: 50%;
+            box-sizing: border-box;
+        }
+
+        .latepost-main .timeline-content {
+            margin-left: 0 !important;
+            padding-top: 2px !important;
+        }
+
+        .latepost-main .timeline-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: baseline !important;
+            gap: 12px !important;
+            flex-wrap: wrap !important;
+        }
+
+        .latepost-main .timeline-link {
+            font-weight: 600;
+            color: #2b6cb0;
+            text-decoration: none;
+            line-height: 1.4;
+        }
+
+        .latepost-main .timeline-link:hover {
+            color: #1a5fd8;
+            text-decoration: underline;
+        }
+
+        .latepost-main .timeline-date {
+            font-size: 14px;
+            color: #1a5fd8;
+            white-space: nowrap;
+        }
+
+        .latepost-main .timeline-excerpt {
+            margin: 6px 0 0;
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+<?php });
+
+
+
+function render_custom_comment_list() {
+    // Lấy tất cả comment cha (parent = 0)
+    $comments = get_comments([
+        'status' => 'approve',
+        'number' => 3,
+        'parent' => 0,
+        'orderby' => 'comment_date_gmt',
+        'order' => 'DESC',
+        'post_id' => get_the_ID(),
+    ]);
+
+    if (empty($comments)) {
+        return '<p>Chưa có bình luận nào.</p>';
+    }
+
+    ob_start();
+    echo '<div class="comment-box">';
+
+
+    foreach ($comments as $comment) {
+        custom_render_comment_tree($comment);
+    }
+
+    echo '</div>';
+    return ob_get_clean();
+}
+add_shortcode('custom_comment_list', 'render_custom_comment_list');
+
+
+// Hàm đệ quy render comment cha + con
+function custom_render_comment_tree($comment, $depth = 0) {
+    ?>
+    <div class="media comment-level-<?php echo $depth; ?>">
+        <div class="media-left">
+            <?php echo get_avatar($comment, 50); ?>
+        </div>
+
+        <div class="media-body">
+            <div class="media-heading">
+                <strong><?php echo esc_html(get_comment_author($comment)); ?></strong>
+<!--                <span class="comment-date">(--><?php //echo get_comment_date('', $comment); ?><!--)</span>-->
+            </div>
+
+            <p><?php echo esc_html(get_comment_text($comment)); ?></p>
+
+            <?php
+            // Lấy các comment con (reply)
+            $replies = get_comments([
+                'status' => 'approve',
+                'parent' => $comment->comment_ID,
+                'orderby' => 'comment_date_gmt',
+                'order' => 'ASC',
+
+            ]);
+
+            if ($replies) {
+                echo '<div class="comment-replies">';
+                foreach ($replies as $reply) {
+                    custom_render_comment_tree($reply, $depth + 1);
+                }
+                echo '</div>';
+            }
+            ?>
+        </div>
+    </div>
+    <?php
+}
