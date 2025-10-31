@@ -898,3 +898,22 @@ p {
     border-left: 2px solid #ddd;
     padding-left: 10px;
 }
+
+.group-body-post {
+    max-width: 100% !important;
+    margin: 0 !important;
+}
+
+.block-category-post{
+    width: 100% !important;
+    max-width: 17% !important;
+}
+
+.has-x-large-font-size{
+    margin: 0 !important;
+}
+
+.block-category-post .wp-block-categories-list{
+    margin: 0 !important;
+    min-width: 100% !important;
+}
