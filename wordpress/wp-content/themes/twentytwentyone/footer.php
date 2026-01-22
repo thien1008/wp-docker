@@ -2,7 +2,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <style>
-    /* Footer */
+	/* Footer */
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 section {
     padding: 60px 0;
@@ -79,51 +79,62 @@ section .section-title {
 }
 
 </style>
-<!------ Include the above in your HEAD tag ---------->
+<?php
+// functions.php
+function register_my_menus() {
+    register_nav_menus([
+        'footer' => __( 'Footer Menu' ),
+    ]);
+}
+add_action( 'init', 'register_my_menus' );
+?>
+
+<!-- footer.php -->
+<?php
+$locations = get_nav_menu_locations();
+$menu_id = $locations['footer'] ?? null;
+
+if ($menu_id) {
+    wp_nav_menu([
+        'theme_location' => 'footer',
+        'container'      => false,
+        'menu_class'     => 'footer-menu',
+    ]);
+} else {
+    echo '<p>Chưa có menu được gán vào vị trí Footer.</p>';
+}
+?>
 
 <!-- Footer -->
 	<section id="footer">
 		<div class="container">
 			<div class="row text-center text-xs-center text-sm-left text-md-left">
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<h5>Quick links</h5>
-					<ul class="list-unstyled quick-links">
-                        <li><a href="/"><i class="fa fa-angle-double-right"></i>Home</a></li>
-                        <li><a href="http://localhost:8080/about"><i class="fa fa-angle-double-right"></i>About</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>Videos</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<h5>Quick links</h5>
-					<ul class="list-unstyled quick-links">
-						<li><a href=""><i class="fa fa-angle-double-right"></i>Home</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>About</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>Videos</a></li>
-					</ul>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4">
-					<h5>Quick links</h5>
-					<ul class="list-unstyled quick-links">
-						<li><a href=""><i class="fa fa-angle-double-right"></i>Home</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>About</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>FAQ</a></li>
-						<li><a href=""><i class="fa fa-angle-double-right"></i>Get Started</a></li>
-						<li><a href="" title="Design and developed by"><i class="fa fa-angle-double-right"></i>Imprint</a></li>
-					</ul>
-				</div>
+				
+	<div class="col-xs-12 col-sm-4 col-md-4 " style='orientation: horizontal;display: flex;justify-content: center;align-items: center;'>
+
+    <?php
+    wp_nav_menu([
+        'theme_location'  => 'footer',
+        'container'       => false,
+        'menu_class'      => 'list-unstyled quick-links footer-quick-links',
+        'fallback_cb'     => false,
+        'depth'           => 1,
+        'link_before'     => '<i class="fa fa-angle-double-right"></i> ',
+        'link_after'      => '',
+    ]);
+    ?>
+</div>
+
+
 			</div>
-			<div class="row">
+<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
 					<ul class="list-unstyled list-inline social text-center">
-						<li class="list-inline-item"><a href=""><i class="fa fa-facebook"></i></a></li>
-						<li class="list-inline-item"><a href=""><i class="fa fa-twitter"></i></a></li>
-						<li class="list-inline-item"><a href=""><i class="fa fa-instagram"></i></a></li>
-						<li class="list-inline-item"><a href=""><i class="fa fa-google-plus"></i></a></li>
-						<li class="list-inline-item"><a href="" target="_blank"><i class="fa fa-envelope"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-facebook"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-instagram"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02"><i class="fa fa-google-plus"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.fiverr.com/share/qb8D02" target="_blank"><i class="fa fa-envelope"></i></a></li>
 					</ul>
 				</div>
 				<hr>
@@ -133,7 +144,7 @@ section .section-title {
 					<p><u><a href="https://www.nationaltransaction.com/">National Transaction Corporation</a></u> is a Registered MSP/ISO of Elavon, Inc. Georgia [a wholly owned subsidiary of U.S. Bancorp, Minneapolis, MN]</p>
 					<p class="h6">© All right Reversed.<a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Sunlimetech</a></p>
 				</div>
-				<hr>    
+				<hr>
 			</div>	
 		</div>
 	</section>
